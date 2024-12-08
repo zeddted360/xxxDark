@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { hList } from "../index.html/hLists";
+import { hList } from "../home/hLists";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 

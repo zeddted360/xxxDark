@@ -86,7 +86,7 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
     return () => {
       socket.off("chat-message");
     };
-  }, []);
+  }, [setNewMessage]);
 
   const scrollToBottom = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -293,8 +293,6 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
         {renderContent()}
       </ScrollArea>
       <MiniFooter
-        message={message}
-        setMessage={setMessage}
         selectedUser={selectedUser}
         setMessages={addMessage}
         conversationId={conversationId}

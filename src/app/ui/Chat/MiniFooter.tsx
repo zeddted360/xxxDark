@@ -18,16 +18,12 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface IMiniFooter {
-  message: IMessage | null;
-  setMessage: React.Dispatch<React.SetStateAction<IMessage | null>>;
   selectedUser: IUser | null;
   setMessages: (newMessage: IMessage) => void;
   conversationId: string;
 }
 
 const MiniFooter = ({
-  message,
-  setMessage,
   selectedUser,
   setMessages,
   conversationId,
@@ -37,7 +33,7 @@ const MiniFooter = ({
   const [file, setFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { message: i, setNewMessage } = useMessageContext();
+  const {setNewMessage } = useMessageContext();
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +128,7 @@ const MiniFooter = ({
           <Card className="mb-3 p-3">
             <div className="flex items-center gap-3">
               {isImage ? (
-                <Image className="h-5 w-5 text-blue-500" />
+                <Image  className="h-5 w-5 text-blue-500" />
               ) : (
                 <File className="h-5 w-5 text-blue-500" />
               )}

@@ -31,7 +31,7 @@ const LoginUI = ({
         body: JSON.stringify({ username }),
       });
       if (!response.ok) console.log("something went wrong");
-      const data = await response.json();
+       await response.json();
       setData({ user, sender: username, receiver: "" });
     } catch (error) {
       console.error(error instanceof Error && error.message);

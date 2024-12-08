@@ -1,13 +1,12 @@
 import React from "react";
-import { links } from "../index.html/links";
+import { links } from "../home/links";
 import Link from "next/link";
 
 const MobileNav = ({
   setIsOpen,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => {
-
+}) => {
   return (
     <div
       onClick={() => setIsOpen((prev) => !prev)}

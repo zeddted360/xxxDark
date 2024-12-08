@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "lucide-react": "^0.460.0",
     "next": "14.2.18",
+    "npm": "^9.9.3",
     "react": "^18",
     "react-dom": "^18",
     "socket.io-client": "^4.8.1",
