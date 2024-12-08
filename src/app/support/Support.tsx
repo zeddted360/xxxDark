@@ -15,6 +15,7 @@ export default function ChatPage() {
   const [conversationId, setConverSationId] = useState("");
   const [typingUser, setTypingUser] = useState<string | null>(null);
   const [user, setUser] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar toggle state
   const { setData } = useChatContext();
 
   useEffect(() => {
@@ -71,14 +72,21 @@ export default function ChatPage() {
   return (
     <div className="h-screen flex flex-col">
       {!user && <LoginUI user={user} setUser={setUser} />}
-      <ChatHeader typingUser={typingUser} selectedUser={selectedUser} />
+      <ChatHeader
+        typingUser={typingUser}
+        selectedUser={selectedUser}
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={() => setIsSidebarOpen((prev) => !prev)} // Pass toggle function
+      />
 
       <div className="flex flex-1 overflow-hidden">
-        <ChatSidebar
-          setSelectedUser={setSelectedUser}
-          selectedUser={selectedUser}
-          getConversation={getConversation}
-        />
+        {isSidebarOpen && (
+          <ChatSidebar
+            setSelectedUser={setSelectedUser}
+            selectedUser={selectedUser}
+            getConversation={getConversation}
+          />
+        )}
         <main className="flex-1 flex flex-col">
           {selectedUser ? (
             <>
@@ -94,3 +102,4 @@ export default function ChatPage() {
     </div>
   );
 }
+

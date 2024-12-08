@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 import { IUser } from "./types";
 import { useChatContext } from "../hooks/useChatContext";
 
@@ -14,7 +22,7 @@ export const ChatSidebar = ({
   getConversation: (sender: string | null, receiver: string) => Promise<void>;
 }) => {
   const [Users, SetUsers] = useState<IUser[] | null>(null);
-  const { user: USER, } = useChatContext();
+  const { user: USER } = useChatContext();
 
   const fetchUsers = async () => {
     try {
@@ -43,42 +51,52 @@ export const ChatSidebar = ({
   }, []);
 
   return (
-    <aside className="w-fit border-r shadow-lg bg-gray-100">
-      <ScrollArea className="h-full">
+    <aside className="w-full max-w-[300px] border-r bg-gray-50 shadow-sm">
+      <ScrollArea className="h-full p-4">
         {Users &&
           Users.filter((item) => item.username !== USER).map((user) => (
-            <div
+            <Card
               key={user._id}
-              className={`p-4 px-2 flex items-center gap-3 rounded-b-md mb-1 cursor-pointer hover:bg-gray-400 hover:gray-red-950 ${
+              className={`p-4 flex items-center gap-4 mb-3 cursor-pointer transition-all hover:shadow-md hover:ring-1 hover:ring-gray-300 ${
                 selectedUser && selectedUser._id === user._id
-                  ? "bg-gray-300 text-black"
-                  : ""
+                  ? "bg-gray-200 ring-2 ring-blue-500"
+                  : "bg-white"
               }`}
               onClick={() => {
                 getConversation(USER, user.username);
-                setSelectedUser(user);
+                  setSelectedUser(user);
               }}
             >
-              <Avatar>
-                <AvatarImage src="" />
-                <AvatarFallback>
-                  {user.username.slice(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="">
-                <p className="font-medium">{user.username}</p>
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`w-2 h-2 rounded-full ${
-                      user.onlineStatus ? "bg-green-400" : "bg-gray-400"
-                    }`}
-                  />
-                  <i className="text-xs text-gray-500">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage
+                        src=''
+                        alt={user.username}
+                      />
+                      <AvatarFallback>
+                        {user.username.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{user.username}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <div className="flex-1">
+                <p className="font-semibold text-gray-800">{user.username}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge
+                    variant={!user.onlineStatus ? "default" : "secondary"}
+                    className="text-xs"
+                  >
                     {user.onlineStatus ? "Online" : "Offline"}
-                  </i>
+                  </Badge>
                 </div>
               </div>
-            </div>
+            </Card>
           ))}
       </ScrollArea>
     </aside>

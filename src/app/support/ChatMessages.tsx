@@ -28,7 +28,7 @@ export const ChatMessages = ({
   const { user } = useChatContext();
   const [messages, setMessages] = useState<IMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-
+  console.log('the first messages are :', messages);
   useEffect(() => {
     if (conversationId) {
       fetch(`http://localhost:8080/api/messages/${conversationId}`)

@@ -12,7 +12,6 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  console.log(isOpen);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +26,13 @@ const Header = () => {
     setIsOpen((prev) => !prev);
   };
 
+  if (pathname === '/support' || pathname === '/') return null;
+  
   return (
     <>
       <div
         id="header"
         className={`header transition-all duration-300 px-8 flex justify-between z-50 text-gray-50 fixed w-full top-0 
-          ${pathname === "/support" && "hidden"}
           ${
             scrolled
               ? "bg-black/90 backdrop-blur-md shadow-lg py-2"
