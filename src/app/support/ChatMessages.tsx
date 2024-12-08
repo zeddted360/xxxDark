@@ -76,7 +76,7 @@ export const ChatMessages = ({
 
   const MediaContent = ({ fileUrl }: { fileUrl: string }) => {
     const fileType = getFileType(fileUrl);
-    const fullUrl = `http://localhost:8080${fileUrl}`;
+    const fullUrl = `https://dumbserver.vercel.app${fileUrl}`;
 
     switch (fileType) {
       case 'image':

@@ -27,7 +27,7 @@ const MiniAside = ({
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/users", {
+      const res = await fetch("https://dumbserver.vercel.app/api/users", {
         next: { revalidate: 0 },
       });
       if (!res.ok) throw new Error("Failed to fetch users");

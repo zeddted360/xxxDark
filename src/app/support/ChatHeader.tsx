@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, MessageSquare } from "lucide-react";
-import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 interface ChatHeaderProps {
   selectedUser: IUser | null;
@@ -75,7 +74,7 @@ export const ChatHeader = ({
 
       <Button
         onClick={toggleSidebar}
-        className="p-2 rounded-md bg-red-700 lg:hidden mr-8"
+        className="p-2 rounded-md bg-red-700 lg:hidden mr-1"
       >
         {isSidebarOpen ? (
           <ChevronLeft size={30} />

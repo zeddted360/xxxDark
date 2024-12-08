@@ -8,8 +8,11 @@ import { io } from "socket.io-client";
 import { useChatContext } from "../hooks/useChatContext";
 import LoginUI from "../ui/Chat/Login";
 
-export const socket = io("http://localhost:8080");
-
+// export const socket = io("http://localhost:8080");
+export const socket = io("https://dumbserver.vercel.app/", {
+  transports: ["websocket"],
+  path: "/socket.io",
+});
 export default function ChatPage() {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [conversationId, setConverSationId] = useState("");
@@ -27,7 +30,7 @@ export default function ChatPage() {
     try {
       if (user) {
         const res = await fetch(
-          `http://localhost:8080/api/conversations/${sender}_${receiver}`
+          `https://dumbserver.vercel.app/api/conversations/${sender}_${receiver}`
         );
         if (!res.ok) throw new Error("Oops something went wrong!");
         const data: { message: IConversation[] } = await res.json();

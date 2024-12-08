@@ -44,7 +44,9 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
 
   useEffect(() => {
     if (receiver && user) {
-      fetch(`http://localhost:8080/api/conversations/${user}_${receiver}`)
+      fetch(
+        `https://dumbserver.vercel.app/api/conversations/${user}_${receiver}`
+      )
         .then((res) => res.json())
         .then((data: { message: IConversation[] }) => {
           if (data.message?.[0]?._id) setConversationId(data.message[0]._id);
@@ -57,7 +59,7 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
 
   useEffect(() => {
     if (conversationId) {
-      fetch(`http://localhost:8080/api/messages/${conversationId}`)
+      fetch(`https://dumbserver.vercel.app/api/messages/${conversationId}`)
         .then((res) => res.json())
         .then((data: { message: IMessage[] }) => {
           // Ensure messages is always an array
