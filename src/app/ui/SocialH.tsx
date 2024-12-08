@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -50,7 +50,7 @@ export default function SocialH() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {items.map((item, i) => (
           <div
-            onClick={()=> router.push('/support')}
+            onClick={() => router.push("/support")}
             key={i}
             className="flex cursor-pointer flex-col items-center justify-center p-4 bg-gray-800 rounded-lg shadow-lg"
           >
@@ -62,7 +62,7 @@ export default function SocialH() {
                 className="object-cover"
               />
             </div>
-            <h3 className="text-gray-50 text-md lg:text-xl text-center uppercase mb-2 line-clamp-2">
+            <h3 className="text-gray-50 text-sm sm:text-base lg:text-lg text-center uppercase mb-2 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] px-1">
               {item.title}
             </h3>
             <p className="text-lg font-black text-gray-400">${item.price}</p>
