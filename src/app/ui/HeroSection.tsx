@@ -1,12 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { useOpenContext } from "../hooks/useOpen";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
   const [activeSection, setActiveSection] = useState("ch1");
-  const {setIsOpen } = useOpenContext();
-
+  const router = useRouter();
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,7 +61,7 @@ const HeroSection = () => {
                   </div>
                   <div className="relative z-50">
                     <Button
-                      onClick={() => setIsOpen(true)}
+                      onClick={() => router.push("/support")}
                       className="bg-[crimson] rounded-full hover:bg-[crimson]/90 font-bold text-black text-md px-8 py-6"
                     >
                       ORDER NOW
@@ -93,7 +92,7 @@ const HeroSection = () => {
                     Trusted
                   </div>
                   <Button
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => router.push("/support")}
                     className="bg-[crimson] rounded-full hover:bg-[crimson]/90 font-bold text-black text-md px-8 py-6"
                   >
                     ORDER NOW
@@ -155,7 +154,7 @@ const HeroSection = () => {
                   <div className="relative z-50">
                     <Button
                       variant={"outline"}
-                      onClick={() => setIsOpen(true)}
+                      onClick={() => router.push("/support")}
                       className="bg-transparent rounded-full hover:bg-[crimson]/90 font-bold text-white text-md px-8 py-6"
                     >
                       ORDER NOW
@@ -183,7 +182,7 @@ const HeroSection = () => {
                   </div>
                   <Button
                     variant={"outline"}
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => router.push("/support")}
                     className="bg-transparent rounded-full hover:bg-[crimson]/90 font-bold text-white text-md px-8 py-6"
                   >
                     ORDER NOW

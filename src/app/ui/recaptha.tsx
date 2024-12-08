@@ -26,7 +26,7 @@ const VerificationPage: React.FC<VerificationProps> = ({ onVerify }) => {
     setIsVerifying(false);
     setIsChecked(true);
       onVerify?.(true);
-      router.push('/index.html');
+      router.push('/home');
   };
   return (
     <Card className="w-full max-w-md bg-transparent border-none shadow-none">
