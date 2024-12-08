@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const Header = () => {
       >
         <div className="siteName flex items-center">
           <Link href="/">
-            <h1 className="DUMPBONDS text-2xl md:text-3xl text-gray-50 font-black tracking-tighter transition-colors duration-200 hover:text-red-500">
+            <h1 className="DUMPBONDS text-2xl md:text-3xl text-gray-50 font-black tracking-tighter hover:text-red-500 transition-colors duration-200">
               DUMPBONDS
             </h1>
           </Link>
@@ -50,7 +51,7 @@ const Header = () => {
           {links.map((item, index) => (
             <React.Fragment key={index}>
               <Link className="group relative px-3 py-2" href={item.url}>
-                <span className="relative z-10 text-sm font-medium transition-colors duration-200 hover:text-red-500">
+                <span className="relative z-10 text-sm font-medium transition-colors duration-200 group-hover:text-red-500">
                   {item.title}
                 </span>
                 <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-red-600 transition-all duration-200 group-hover:w-full" />
