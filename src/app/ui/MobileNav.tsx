@@ -5,7 +5,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 
 const MobileNav = ({
   setIsOpen,
@@ -17,8 +17,11 @@ const MobileNav = ({
       <SheetContent side="left" className="w-[300px] bg-black p-0">
         <ScrollArea className="h-full px-4">
           <div className="pt-8 pb-6">
-            <h2 className="px-4 text-lg font-bold tracking-tight text-gray-50 mb-4">
-              Navigation
+            <h2 className="px-4 text-lg font-bold tracking-tight flex justify-between items-center text-gray-50 mb-4">
+              <span>Navigation</span>
+              <Button  onClick={()=>setIsOpen(false)}>
+                <X size={18} />
+              </Button>
             </h2>
             <Separator className="mb-4 bg-gray-800" />
             <div className="flex flex-col space-y-2">
