@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer className="text-center text-lg text-gray-50 font-bold p-8">
-      &copy; {new Date().getFullYear()} DUMPBONDS
+      &copy; {2010} DUMPBONDS
     </footer>
   );
 }
