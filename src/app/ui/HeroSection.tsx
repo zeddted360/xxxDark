@@ -54,7 +54,7 @@ const HeroSection = () => {
                   </div>
                   <div className="tested text-2xl font-light">
                     Tested
-                    <span className="text-[crimson] text-3xl font-bold">
+                    <span className="text-[crimson] ml-1 text-3xl font-bold">
                       and
                     </span>{" "}
                     Trusted

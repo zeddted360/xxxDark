@@ -1,6 +1,11 @@
 import React from "react";
 import { links } from "../home/links";
 import Link from "next/link";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { ChevronRight } from "lucide-react";
 
 const MobileNav = ({
   setIsOpen,
@@ -8,22 +13,35 @@ const MobileNav = ({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
-    <div
-      onClick={() => setIsOpen((prev) => !prev)}
-      id="navMobile"
-      className="mobile_navigation pt-10 px-2 p-2 bg-black text-gray-100 flex flex-col gap-2 my-2"
-    >
-      {links.map((item, index) => (
-        <Link className="text-lg block" key={index} href={item.url}>
-          <div className="w-fit">
-            <span className="relative group inline-block">
-              {item.title}
-              <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-red-600 group-hover:w-full group-hover:left-0 transition-all duration-300" />
-            </span>
+    <Sheet open={true} onOpenChange={() => setIsOpen(false)}>
+      <SheetContent side="left" className="w-[300px] bg-black p-0">
+        <ScrollArea className="h-full px-4">
+          <div className="pt-8 pb-6">
+            <h2 className="px-4 text-lg font-bold tracking-tight text-gray-50 mb-4">
+              Navigation
+            </h2>
+            <Separator className="mb-4 bg-gray-800" />
+            <div className="flex flex-col space-y-2">
+              {links.map((item, index) => (
+                <Link key={index} href={item.url}>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-between text-gray-50 hover:bg-gray-800/50 hover:text-red-500 transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <span className="text-base">{item.title}</span>
+                    <ChevronRight size={18} className="opacity-50" />
+                  </Button>
+                  {index < links.length - 1 && (
+                    <Separator className="my-1 bg-gray-800/50" />
+                  )}
+                </Link>
+              ))}
+            </div>
           </div>
-        </Link>
-      ))}
-    </div>
+        </ScrollArea>
+      </SheetContent>
+    </Sheet>
   );
 };
 

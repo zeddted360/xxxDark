@@ -16,7 +16,7 @@ export default function SocialH() {
       price: 58,
     },
     {
-      title: "telegram members/subscribers",
+      title: "telegram subscribers",
       price: 14,
     },
     {
