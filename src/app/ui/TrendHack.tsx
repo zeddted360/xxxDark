@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function TrendHack() {
   const router = useRouter();
   return (
-    <div id="trending" className="flex p-2 gap-x-4">
+    <div id="trending" className="flex p-2 gap-x-4 mb-4">
       {/* image for lg screens */}
       <div
         style={{ backgroundImage: "url('/darktwo.jpg') " }}
@@ -52,7 +52,7 @@ export default function TrendHack() {
           onClick={() => router.push("/support")}
           className="text-gray-950 uppercase font-bold w-1/2 bg-[crimson] rounded-full"
         >
-          Buy true
+          Buy now
         </Button>
       </div>
     </div>
