@@ -26,10 +26,10 @@ export const ChatSidebar = ({
   const { setUsers } = useUsersContext();
 
   useEffect(() => {
-    let currUser = localStorage.getItem("username");
+    const currUser = localStorage.getItem("username");
     if (currUser)
       setData((prev) => ({ ...prev, user: currUser, sender: currUser }));
-  }, []);
+  }, [setData]);
 
   const fetchUsers = async () => {
     try {
@@ -56,7 +56,7 @@ export const ChatSidebar = ({
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [fetchUsers]);
 
   return (
     <aside className="w-full max-w-[300px] border-r bg-gray-50 shadow-sm">

@@ -26,7 +26,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MiniFooter from "./MiniFooter";
 import { IConversation } from "@/app/support/types";
 import { useChatContext, useNewMessageContext } from "@/app/context/store";
-import { socket } from "@/app/home/page";
+import { socket } from "@/app/support/Support";
+// import { socket } from "@/app/home/page";
 
 interface IMiniMain {
   selectedUser: IUser | null;

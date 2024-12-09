@@ -43,7 +43,7 @@ const MiniAside = ({
     fetchUsers();
     const interval = setInterval(fetchUsers, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchUsers]);
 
   const filteredUsers = users
     .filter((user) => user.username !== currentUser)

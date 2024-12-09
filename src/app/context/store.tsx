@@ -1,7 +1,6 @@
 "use client";
 
 import React, {
-  Children,
   createContext,
   useContext,
   useEffect,
@@ -52,7 +51,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
 // hook
 export const useUserContext = () => {
-  let context = useContext(UserContext);
+  const context = useContext(UserContext);
   if (!context) {
     throw new Error(
       "Sorry, a user context must be within a user  context provider"
@@ -98,7 +97,7 @@ export const NewMessageContextProvider: React.FC<{
 // message context hook
 
 export const useNewMessageContext = () => {
-  let context = useContext(NewMessageContext);
+  const context = useContext(NewMessageContext);
 
   if (!context) {
     throw new Error(
@@ -153,7 +152,7 @@ export const ChatContextProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 // chat context hook
 export const useChatContext = () => {
-  let context = useContext(ChatContext);
+  const context = useContext(ChatContext);
   if (!context) {
     throw new Error(
       "sorry chat context must be within a chat context provider"
@@ -188,7 +187,7 @@ export const OpenContextProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 
 export const useIsOpenContext = () => {
-  let context = useContext(OpenContext);
+  const context = useContext(OpenContext);
   if (!context) {
     throw new Error(
       "sorry and open context must be with an open context provider"
@@ -229,7 +228,7 @@ export const UsersContextProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 
 export const useUsersContext = () => {
-  let context = useContext(usersContext);
+  const context = useContext(usersContext);
 
   if (!context) {
     throw new Error("Error context must be within a users context provider");

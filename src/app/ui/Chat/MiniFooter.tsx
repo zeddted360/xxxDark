@@ -14,7 +14,8 @@ import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useChatContext, useNewMessageContext } from "@/app/context/store";
-import { socket } from "@/app/home/page";
+import { socket } from "@/app/support/Support";
+// import { socket } from "@/app/home/page";
 
 interface IMiniFooter {
   selectedUser: IUser | null;

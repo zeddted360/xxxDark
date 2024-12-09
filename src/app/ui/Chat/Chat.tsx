@@ -5,7 +5,7 @@ import ChatInterface from "./MiniChat";
 import { useIsOpenContext } from "@/app/context/store";
 
 const ChatWindow = () => {
-  const [isOnline, setIsOnline] = useState(true);
+  const [isOnline] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { Open, setOpen } = useIsOpenContext();
@@ -22,7 +22,8 @@ const ChatWindow = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [setOpen]);
+  
   const containerClass = isFullScreen
     ? "fixed z-50 inset-0 w-full h-fit bg-transparent"
     : isMobile

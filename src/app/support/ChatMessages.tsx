@@ -17,8 +17,9 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { socket } from "../home/page";
+// import { socket } from "../home/page";
 import { useChatContext } from "../context/store";
+import { socket } from "./Support";
 
 export const ChatMessages = ({
   conversationId,

@@ -45,7 +45,7 @@ const ChatNotification = () => {
         ),
       });
     }
-  }, [Open, content, fileUrl, sender, newMessage, toast]);
+  }, [Open, content, fileUrl, sender, newMessage,user.username, toast]);
 
   return null;
 };

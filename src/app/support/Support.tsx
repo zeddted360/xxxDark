@@ -4,8 +4,12 @@ import { ChatHeader } from "./ChatHeader";
 import { ChatSidebar } from "./ChatSidebar";
 import { ChatMessages } from "./ChatMessages";
 import { IConversation, IUser } from "./types";
-import { socket } from "../home/page";
+// import { socket } from "../home/page";
+import { io } from "socket.io-client";
 import { useChatContext } from "../context/store";
+
+export const socket = io("http://localhost:8080");
+
 
 export default function ChatPage() {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);

@@ -1,7 +1,6 @@
 import { IUser } from "./types";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useUsersContext } from "../context/store";

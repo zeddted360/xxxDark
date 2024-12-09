@@ -7,7 +7,8 @@ import MiniAside from "./MiniAside";
 import MiniMain from "./MiniMain";
 import { IUser } from "@/app/support/types";
 import { useIsOpenContext, useUserContext } from "@/app/context/store";
-import { socket } from "@/app/home/page";
+import { socket } from "@/app/support/Support";
+// import { socket } from "@/app/home/page";
 
 const ChatInterface = () => {
   const [isExpanded, setIsExpanded] = useState(false);

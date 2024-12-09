@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import "./globals.css";
 import Header from "./ui/Header";
 import Footer from "./ui/Footer";
@@ -9,6 +11,12 @@ import {
   UserContextProvider,
   UsersContextProvider,
 } from "./context/store";
+
+export const metadata: Metadata = {
+  title: "Dark Bonds | Home",
+  description: "Tested and Trusted",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
