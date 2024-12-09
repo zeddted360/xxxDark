@@ -35,8 +35,7 @@ interface IMiniMain {
 }
 
 const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  // const [message, setMessage] = useState<IMessage | null>(null);
+ const [messages, setMessages] = useState<IMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { user, receiver } = useChatContext();
   const [conversationId, setConversationId] = useState<string>("");
@@ -60,12 +59,11 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
       fetch(`http://localhost:8080/api/messages/${conversationId}`)
         .then((res) => res.json())
         .then((data: { message: IMessage[] }) => {
-          // Ensure messages is always an array
           setMessages(Array.isArray(data.message) ? data.message : []);
         })
         .catch((error) => {
           console.error(error);
-          setMessages([]); // Set empty array on error
+          setMessages([]);
         });
     }
   }, [conversationId]);
@@ -73,7 +71,6 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
   useEffect(() => {
     socket.on("chat-message", (message) => {
       setMessages((prevMessages) => {
-        // Ensure prevMessages is an array before using array methods
         const messageArray = Array.isArray(prevMessages) ? prevMessages : [];
         if (messageArray.some((msg) => msg._id === message._id)) {
           return messageArray;
