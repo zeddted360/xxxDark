@@ -12,7 +12,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -26,8 +26,8 @@ const Header = () => {
     setIsOpen((prev) => !prev);
   };
 
-  if (pathname === '/support' || pathname === '/') return null;
-  
+  if (pathname === "/support" || pathname === "/") return null;
+
   return (
     <>
       <div

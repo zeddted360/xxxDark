@@ -17,6 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { IUser } from "@/app/support/types";
+import { useUsersContext } from "@/app/context/store";
 
 interface IMiniHeaderProp {
   selectedUser: IUser | null;
@@ -40,6 +41,11 @@ const MiniHeader = ({
   setIsOpen,
   typingUser,
 }: IMiniHeaderProp) => {
+  const { users } = useUsersContext();
+  const loggedInUser = users.find(
+    (user: IUser) => user.username === selectedUser?.username
+  );
+
   return (
     <div className="relative bg-gradient-to-r from-red-600 to-red-500 p-4 text-white rounded-t-lg shadow-md">
       <div className="flex items-center justify-between">
@@ -50,20 +56,25 @@ const MiniHeader = ({
             <h1 className="text-xl font-bold tracking-tight">Dump Bonds</h1>
           </div>
 
-          {selectedUser && (
+          {loggedInUser && (
             <>
               <Separator orientation="vertical" className="h-8 bg-red-400/30" />
               <div className="flex items-center space-x-3">
                 <div className="relative">
                   <div className="w-10 h-10 rounded-full bg-red-700/30 flex items-center justify-center">
                     <span className="text-lg font-semibold">
-                      {selectedUser.username[0].toUpperCase()}
+                      {loggedInUser.username[0].toUpperCase()}
                     </span>
                   </div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-400 border-2 border-red-500" />
+                  <div
+                    className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${
+                      loggedInUser.onlineStatus &&
+                      " bg-green-400 border-2 border-red-500"
+                    }`}
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium">{selectedUser.username}</span>
+                  <span className="font-medium">{loggedInUser.username}</span>
                   {typingUser ? (
                     <Badge
                       variant="secondary"
@@ -77,7 +88,13 @@ const MiniHeader = ({
                       </span>
                     </Badge>
                   ) : (
-                    <span className="text-xs text-red-100">Online</span>
+                    <span
+                      className={`text-xs ${
+                        loggedInUser.onlineStatus ? "inline-block" : "hidden"
+                      } text-red-100`}
+                    >
+                      Active
+                    </span>
                   )}
                 </div>
               </div>

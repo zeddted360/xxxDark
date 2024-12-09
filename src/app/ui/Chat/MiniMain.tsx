@@ -24,10 +24,9 @@ import {
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MiniFooter from "./MiniFooter";
-import { useChatContext } from "@/app/hooks/useChatContext";
 import { IConversation } from "@/app/support/types";
-import { socket } from "@/app/support/Support";
-import { useMessageContext } from "@/app/hooks/useMessageContext";
+import { useChatContext, useNewMessageContext } from "@/app/context/store";
+import { socket } from "@/app/home/page";
 
 interface IMiniMain {
   selectedUser: IUser | null;
@@ -36,17 +35,15 @@ interface IMiniMain {
 
 const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [message, setMessage] = useState<IMessage | null>(null);
+  // const [message, setMessage] = useState<IMessage | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { user,  receiver } = useChatContext();
+  const { user, receiver } = useChatContext();
   const [conversationId, setConversationId] = useState<string>("");
-  const { setNewMessage } = useMessageContext();
+  const { setNewMessage } = useNewMessageContext();
 
   useEffect(() => {
     if (receiver && user) {
-      fetch(
-        `https://dumbserver.vercel.app/api/conversations/${user}_${receiver}`
-      )
+      fetch(`http://localhost:8080/api/conversations/${user}_${receiver}`)
         .then((res) => res.json())
         .then((data: { message: IConversation[] }) => {
           if (data.message?.[0]?._id) setConversationId(data.message[0]._id);
@@ -59,7 +56,7 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
 
   useEffect(() => {
     if (conversationId) {
-      fetch(`https://dumbserver.vercel.app/api/messages/${conversationId}`)
+      fetch(`http://localhost:8080/api/messages/${conversationId}`)
         .then((res) => res.json())
         .then((data: { message: IMessage[] }) => {
           // Ensure messages is always an array

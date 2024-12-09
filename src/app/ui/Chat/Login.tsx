@@ -25,7 +25,7 @@ const LoginUI = ({
 
   const postUserToDB = async (username: string) => {
     try {
-      const response = await fetch("https://dumbserver.vercel.app/api/user", {
+      const response = await fetch("http://localhost:8080/api/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username }),

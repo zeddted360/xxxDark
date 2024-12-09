@@ -3,9 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { IMessage } from "./types";
 import { useEffect, useRef, useState } from "react";
-import { useChatContext } from "../hooks/useChatContext";
 import { ChatInput } from "./ChatInput";
-import { socket } from "./Support";
 import Image from "next/image";
 import { FileIcon,  FileTextIcon, Download } from "lucide-react";
 import {
@@ -19,6 +17,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { socket } from "../home/page";
+import { useChatContext } from "../context/store";
 
 export const ChatMessages = ({
   conversationId,
@@ -28,7 +28,6 @@ export const ChatMessages = ({
   const { user } = useChatContext();
   const [messages, setMessages] = useState<IMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-  console.log('the first messages are :', messages);
   useEffect(() => {
     if (conversationId) {
       fetch(`http://localhost:8080/api/messages/${conversationId}`)
@@ -76,7 +75,7 @@ export const ChatMessages = ({
 
   const MediaContent = ({ fileUrl }: { fileUrl: string }) => {
     const fileType = getFileType(fileUrl);
-    const fullUrl = `https://dumbserver.vercel.app${fileUrl}`;
+    const fullUrl = `http://localhost:8080${fileUrl}`;
 
     switch (fileType) {
       case 'image':

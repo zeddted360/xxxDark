@@ -2,18 +2,19 @@
 import React, { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
 import ChatInterface from "./MiniChat";
+import { useIsOpenContext } from "@/app/context/store";
 
 const ChatWindow = () => {
   const [isOnline, setIsOnline] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  
+  const { Open, setOpen } = useIsOpenContext();
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
       if (window.innerWidth < 768) {
-        setIsOpen(false);
+        setOpen(false);
         setIsFullScreen(false);
       }
     };
@@ -33,11 +34,12 @@ const ChatWindow = () => {
         <div
           className={`transition-all duration-300  h-fit  ${containerClass}`}
         >
-          {!isOpen ? (
+          {!Open ? (
             <div className="fixed bottom-6 right-6">
               <button
                 onClick={() => {
-                  setIsOpen(true);
+              setOpen(true);
+              setOpen(true);
                 }}
                 className="bg-[crimson] text-white px-4 py-2 rounded-full flex items-center  shadow-lg hover:bg-orange-600 transition-colors relative"
               >

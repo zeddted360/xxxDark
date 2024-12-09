@@ -10,7 +10,7 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 import { IUser } from "./types";
-import { useChatContext } from "../hooks/useChatContext";
+import { useChatContext, useUsersContext } from "../context/store";
 
 export const ChatSidebar = ({
   setSelectedUser,
@@ -22,11 +22,18 @@ export const ChatSidebar = ({
   getConversation: (sender: string | null, receiver: string) => Promise<void>;
 }) => {
   const [Users, SetUsers] = useState<IUser[] | null>(null);
-  const { user: USER } = useChatContext();
+  const { user: USER, setData } = useChatContext();
+  const { setUsers } = useUsersContext();
+
+  useEffect(() => {
+    let currUser = localStorage.getItem("username");
+    if (currUser)
+      setData((prev) => ({ ...prev, user: currUser, sender: currUser }));
+  }, []);
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("https://dumbserver.vercel.app/api/users", {
+      const res = await fetch("http://localhost:8080/api/users", {
         next: { revalidate: 0 },
       });
       if (!res.ok) {
@@ -34,6 +41,7 @@ export const ChatSidebar = ({
       }
       const data: { message: IUser[] } = await res.json();
       SetUsers(data.message);
+      setUsers(data.message);
     } catch (error) {
       console.error(error instanceof Error && error.message);
     }
@@ -64,17 +72,14 @@ export const ChatSidebar = ({
               }`}
               onClick={() => {
                 getConversation(USER, user.username);
-                  setSelectedUser(user);
+                setSelectedUser(user);
               }}
             >
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
                     <Avatar className="h-10 w-10">
-                      <AvatarImage
-                        src=''
-                        alt={user.username}
-                      />
+                      <AvatarImage src="" alt={user.username} />
                       <AvatarFallback>
                         {user.username.slice(0, 2).toUpperCase()}
                       </AvatarFallback>

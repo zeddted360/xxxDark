@@ -4,15 +4,9 @@ import { ChatHeader } from "./ChatHeader";
 import { ChatSidebar } from "./ChatSidebar";
 import { ChatMessages } from "./ChatMessages";
 import { IConversation, IUser } from "./types";
-import { io } from "socket.io-client";
-import { useChatContext } from "../hooks/useChatContext";
-import LoginUI from "../ui/Chat/Login";
+import { socket } from "../home/page";
+import { useChatContext } from "../context/store";
 
-// export const socket = io("http://localhost:8080");
-export const socket = io("https://dumbserver.vercel.app/", {
-  transports: ["websocket"],
-  path: "/socket.io",
-});
 export default function ChatPage() {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [conversationId, setConverSationId] = useState("");
@@ -22,7 +16,7 @@ export default function ChatPage() {
   const { setData } = useChatContext();
 
   useEffect(() => {
-    setUser(localStorage.getItem("user"));
+    setUser(localStorage.getItem("username"));
   }, []);
 
   const getConversation = async (sender: string | null, receiver: string) => {
@@ -30,7 +24,7 @@ export default function ChatPage() {
     try {
       if (user) {
         const res = await fetch(
-          `https://dumbserver.vercel.app/api/conversations/${sender}_${receiver}`
+          `http://localhost:8080/api/conversations/${sender}_${receiver}`
         );
         if (!res.ok) throw new Error("Oops something went wrong!");
         const data: { message: IConversation[] } = await res.json();
@@ -74,12 +68,11 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col">
-      {!user && <LoginUI user={user} setUser={setUser} />}
       <ChatHeader
         typingUser={typingUser}
         selectedUser={selectedUser}
         isSidebarOpen={isSidebarOpen}
-        toggleSidebar={() => setIsSidebarOpen((prev) => !prev)} // Pass toggle function
+        toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
       />
 
       <div className="flex flex-1 overflow-hidden">
@@ -105,4 +98,3 @@ export default function ChatPage() {
     </div>
   );
 }
-

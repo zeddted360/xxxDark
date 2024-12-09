@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Search, Users } from "lucide-react";
 import { IUser } from "@/app/support/types";
-import { useChatContext } from "@/app/hooks/useChatContext";
+import { useChatContext, useUsersContext } from "@/app/context/store";
 
 interface IMiniAsideProps {
   isSidebarOpen: boolean;
@@ -23,21 +23,22 @@ const MiniAside = ({
 }: IMiniAsideProps) => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const { user: User, sender, setData } = useChatContext();
+  const { setData } = useChatContext();
+  const { setUsers:setAllUsers } = useUsersContext();
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("https://dumbserver.vercel.app/api/users", {
+      const res = await fetch("http://localhost:8080/api/users", {
         next: { revalidate: 0 },
       });
       if (!res.ok) throw new Error("Failed to fetch users");
       const data: { message: IUser[] } = await res.json();
       setUsers(data.message);
+      setAllUsers (data.message);
     } catch (error) {
       console.error(error);
     }
   };
-
   useEffect(() => {
     fetchUsers();
     const interval = setInterval(fetchUsers, 5000);
@@ -94,7 +95,7 @@ const MiniAside = ({
                       : "hover:bg-gray-50"
                   }`}
                   onClick={() => {
-                    setData({ user: User, sender, receiver: user.username });
+                    setData({ user: currentUser, receiver: user.username,sender:currentUser ||'' });
                     setSelectedUser(user);
                   }}
                 >

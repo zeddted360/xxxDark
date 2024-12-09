@@ -1,20 +1,24 @@
+"use client";
 import React, { useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useMessageContext } from "../hooks/useMessageContext";
 import { FileText, MessageSquare } from "lucide-react";
+import {
+  useIsOpenContext,
+  useNewMessageContext,
+  useUserContext,
+} from "../context/store";
 
 const ChatNotification = () => {
   const { toast } = useToast();
-  const { message } = useMessageContext();
+  const { newMessage } = useNewMessageContext();
+  const { Open } = useIsOpenContext();
+  const { user } = useUserContext();
+  const { fileUrl, content, sender } = newMessage;
 
   useEffect(() => {
-    const { fileUrl, content, sender } = message;
-    const hasNewMessage = sender && (content || fileUrl);
-    console.log("the message is ", message);
-
-    if (hasNewMessage) {
+    if (!Open && sender !== user.username && (content || fileUrl)) {
       toast({
-        duration: 400000,
+        duration: 4000,
         className:
           "bg-gray-50 text-gray-800 fixed top-4 right-4 w-72 cursor-pointer hover:bg-gray-100 transition-colors",
         title: (
@@ -37,12 +41,11 @@ const ChatNotification = () => {
                 {content ? "Sent a file" : "New file shared"}
               </p>
             )}
-            <p className="text-xs text-gray-500">Click to open chat</p>
           </div>
         ),
       });
     }
-  }, [message.fileUrl, message.content, message.sender, message, toast]);
+  }, [Open, content, fileUrl, sender, newMessage, toast]);
 
   return null;
 };

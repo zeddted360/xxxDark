@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Paperclip, Send, X } from "lucide-react";
-import { useChatContext } from "../hooks/useChatContext";
-import { socket } from "./Support";
 import EmojiPicker from "../ui/Chat/Emoji";
 import { IMessage } from "./types";
+import { useChatContext } from "../context/store";
+import { socket } from "../home/page";
 
 export const ChatInput = ({
   setMessages,

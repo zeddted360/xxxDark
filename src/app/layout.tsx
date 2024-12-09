@@ -1,31 +1,37 @@
-"use client";
 import "./globals.css";
 import Header from "./ui/Header";
 import Footer from "./ui/Footer";
 import ToastUi from "./ToastUi";
-import { ChatContextProvider } from "./context/ChatContext";
-import { MessageContextProvider } from "./context/MessageContext";
-import { OpenContextProvider } from "./context/OpenContext";
+import {
+  ChatContextProvider,
+  NewMessageContextProvider,
+  OpenContextProvider,
+  UserContextProvider,
+  UsersContextProvider,
+} from "./context/store";
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-    <html lang="en">
-      <ChatContextProvider>
-        <MessageContextProvider>
-          <OpenContextProvider>
-            <body className={`bg-black antialiased`}>
-              <Header />
-              <ToastUi />
-              {children}
-              <Footer />
-            </body>
-          </OpenContextProvider>
-        </MessageContextProvider>
-      </ChatContextProvider>
+    <html lang="en_us">
+      <body className={`bg-black antialiased`}>
+        <UsersContextProvider>
+          <UserContextProvider>
+            <ChatContextProvider>
+              <NewMessageContextProvider>
+                <OpenContextProvider>
+                  <Header />
+                  <ToastUi />
+                  {children}
+                  <Footer />
+                </OpenContextProvider>
+              </NewMessageContextProvider>
+            </ChatContextProvider>
+          </UserContextProvider>
+        </UsersContextProvider>
+      </body>
     </html>
   );
 }

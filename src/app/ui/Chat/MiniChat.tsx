@@ -1,55 +1,41 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MessageCircle } from "lucide-react";
-
 import MiniHeader from "./MiniHeader";
 import MiniAside from "./MiniAside";
 import MiniMain from "./MiniMain";
 import { IUser } from "@/app/support/types";
-import { socket } from "@/app/support/Support";
-import { useChatContext } from "@/app/hooks/useChatContext";
+import { useIsOpenContext, useUserContext } from "@/app/context/store";
+import { socket } from "@/app/home/page";
 
 const ChatInterface = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [currentUser, setCurrentUser] = useState<string | null>(null);
   const [typingUser, setTypingUser] = useState<string | null>(null);
-  const { user } = useChatContext();
-  useEffect(() => {
-    setCurrentUser(localStorage.getItem("user"));
-  }, []);
+  const { Open:isOpen, setOpen:setIsOpen } = useIsOpenContext();
+
+  const { user } = useUserContext();
 
   useEffect(() => {
-    socket.disconnect();
-    socket.connect();
+    if (user) setCurrentUser(user.username);
+  }, [user]);
 
-    socket.on("connect", () => {
-
-      if (user) {
-        socket.emit("updateUser", { socketId: socket.id, username: user });
-      }
-    });
-
-    socket.on("disconnect", (reason) => {
-      console.log("socket is disconnected " + socket.id, reason);
-    });
-
-    socket.on("typing", (typingUser) => {
+  useEffect(() => {
+    const handleTyping = (typingUser: string | null) => {
       setTypingUser(typingUser);
       setTimeout(() => setTypingUser(null), 3000);
-    });
+    };
+
+    socket.on("typing", handleTyping);
 
     return () => {
-      socket.off("connect");
-      socket.off("chat-message");
-      socket.off("typing");
-      socket.disconnect();
+      socket.off("typing", handleTyping);
     };
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {

@@ -3,10 +3,7 @@ import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Paperclip, Send, X, Image, File, Smile } from "lucide-react";
-import { useChatContext } from "@/app/hooks/useChatContext";
-import { socket } from "@/app/support/Support";
 import EmojiPicker from "./Emoji";
-import { useMessageContext } from "@/app/hooks/useMessageContext";
 import {
   Tooltip,
   TooltipContent,
@@ -16,6 +13,8 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useChatContext, useNewMessageContext } from "@/app/context/store";
+import { socket } from "@/app/home/page";
 
 interface IMiniFooter {
   selectedUser: IUser | null;
@@ -29,13 +28,14 @@ const MiniFooter = ({
   conversationId,
 }: IMiniFooter) => {
   const { user, receiver } = useChatContext();
+  const { setNewMessage } = useNewMessageContext();
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const {setNewMessage } = useMessageContext();
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
+  
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -107,7 +107,6 @@ const MiniFooter = ({
       socket.emit("chat-message", newMessage);
       new Audio("/beep.mp3").play();
       setNewMessage(newMessage);
-
       setContent("");
       setFile(null);
       setUploadProgress(null);
@@ -198,6 +197,7 @@ const MiniFooter = ({
               placeholder={file ? "Add a caption..." : "Type a message..."}
               className="flex-1 bg-white"
               onInput={() => {
+                console.log(user,'is typing...')
                 if (user) socket.emit("typing", { typingUser: user });
               }}
             />
