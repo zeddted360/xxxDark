@@ -137,15 +137,6 @@ const HeroSection = () => {
                 Order Now
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => router.push("/support")}
-                className="rounded-full px-8 py-6 text-lg border-gray-700 text-gray-300 hover:bg-gray-800"
-              >
-                Learn More
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
             </div>
           </div>
         </div>

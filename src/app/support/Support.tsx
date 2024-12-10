@@ -4,11 +4,10 @@ import { ChatHeader } from "./ChatHeader";
 import { ChatSidebar } from "./ChatSidebar";
 import { ChatMessages } from "./ChatMessages";
 import { IConversation, IUser } from "./types";
-// import { socket } from "../home/page";
 import { io } from "socket.io-client";
 import { useChatContext } from "../context/store";
 
-export const socket = io("http://localhost:8080");
+export const socket = io("https://api.darkdumps.org");
 
 
 export default function ChatPage() {
@@ -28,7 +27,7 @@ export default function ChatPage() {
     try {
       if (user) {
         const res = await fetch(
-          `http://localhost:8080/api/conversations/${sender}_${receiver}`
+          `https://api.darkdumps.org/api/conversations/${sender}_${receiver}`
         );
         if (!res.ok) throw new Error("Oops something went wrong!");
         const data: { message: IConversation[] } = await res.json();

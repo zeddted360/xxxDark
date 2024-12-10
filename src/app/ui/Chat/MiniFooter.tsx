@@ -58,7 +58,7 @@ const MiniFooter = ({
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://localhost:8080/api/upload");
+      xhr.open("POST", "https://api.darkdumps.org/api/upload");
 
       xhr.upload.onprogress = (event) => {
         if (event.lengthComputable) {

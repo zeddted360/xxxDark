@@ -31,7 +31,7 @@ export const ChatMessages = ({
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (conversationId) {
-      fetch(`http://localhost:8080/api/messages/${conversationId}`)
+      fetch(`https://api.darkdumps.org/api/messages/${conversationId}`)
         .then((res) => res.json())
         .then((data: { message: IMessage[] }) => setMessages(data.message))
         .catch((error) => console.error(error));

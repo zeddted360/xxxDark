@@ -32,7 +32,7 @@ const FlashingSoftware: React.FC = () => {
             </p>
           </div>
           <h3 className="text-lg font-bold text-gray-50 mb-2">
-            SQR<span className="text-[crimson]">400</span> VERSION 4.0
+            SQR<span className="text-[crimson]"> 400</span> VERSION 4.0
           </h3>
           <div className="space-y-1">
             <p className="text-muted-foreground text-base md:text-lg capitalize">
@@ -67,7 +67,7 @@ const FlashingSoftware: React.FC = () => {
             </p>
           </div>
           <h3 className="text-lg font-bold text-gray-50 mb-2">
-            SWIFT SQR<span className="text-[crimson]">400</span> FLASH SOFTWARE
+            SWIFT SQR<span className="text-[crimson]"> 400</span> FLASH SOFTWARE
           </h3>
           <div className="space-y-1">
             <p className="text-muted-foreground text-base md:text-lg capitalize">

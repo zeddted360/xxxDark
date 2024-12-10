@@ -112,7 +112,7 @@ const MiniMain = ({ selectedUser, currentUser }: IMiniMain) => {
 
   const MediaContent = ({ fileUrl }: { fileUrl: string }) => {
     const fileType = getFileType(fileUrl);
-    const fullUrl = `http://localhost:8080${fileUrl}`;
+    const fullUrl = `https://api.darkdumps.org${fileUrl}`;
 
     switch (fileType) {
       case "image":

